@@ -9,10 +9,6 @@ export default class navigation extends Component {
     super ( props );
   }
 
-  test ( e ) {
-    console.log( 111, e )
-  }
-
   render () {
     const { changeNav, theme, changeStyle, themeColor } = this.props;
     return (

@@ -26,7 +26,6 @@ export default class layout extends Component {
   }
 
   changeStyle () {
-    console.log( 3333 )
     const { theme } = this.state;
     let themeStyle = {};
     if( theme === 'dark' ){
@@ -51,7 +50,6 @@ export default class layout extends Component {
 
   render () {
     const { nav, theme, themeColor } = this.state;
-    console.log( 44, theme )
     return (
       <Layout className='default_layout' style={{ height: '100vh' }}>
         <Header style={{ padding: '0' }} className="header">
