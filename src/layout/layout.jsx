@@ -1,72 +1,64 @@
 import React, { Component } from "react";
 import { Layout, Menu, Breadcrumb } from 'antd';
 import '../css/Box/style.css';
-import 'antd/dist/antd.css'
-import BoxGame from '../components/Box/boxGame';
+import 'antd/dist/antd.css';
+import '../css/layout/layout.css'
 import Mavigation from "./navigation";
-
-const { SubMenu } = Menu;
-const { Header, Content, Sider } = Layout;
+import Layout1 from './layout1';
+import Layout2 from './layout2';
+const { Header } = Layout;
 
 export default class layout extends Component {
   constructor ( props ) {
     super ( props );
     this.state = {
-      lightStyle: 'dark',
-      menuItem: ''
+      nav: '1',
+      theme: 'dark',
+      themeColor: {
+        color: '#fff',
+        backgroundColor: '#000'
+      }
     }
   }
 
-  clickMenu ( e ) {
-    this.setState ( { menuItem: e.key } );
+  changeNav( e ) {
+    this.setState( { nav: e.key } )
+  }
+
+  changeStyle () {
+    console.log( 3333 )
+    const { theme } = this.state;
+    let themeStyle = {};
+    if( theme === 'dark' ){
+      themeStyle = {
+        theme: 'light',
+        themeColor: {
+          color: '#000',
+          backgroundColor: '#fff'
+        }
+      }
+    } else {
+      themeStyle = {
+        theme: 'dark',
+        themeColor: {
+          color: '#fff',
+          backgroundColor: '#000'
+        }
+      }
+    }
+    this.setState( themeStyle );
   }
 
   render () {
-    const { menuItem } = this.state;
-
+    const { nav, theme, themeColor } = this.state;
+    console.log( 44, theme )
     return (
-      <Layout>
-        <Header className="header">
-          <div className="logo"/>
-          <Mavigation/>
+      <Layout className='default_layout' style={{ height: '100vh' }}>
+        <Header style={{ padding: '0' }} className="header">
+          <Mavigation themeColor={themeColor} changeStyle={this.changeStyle.bind(this)} theme={theme} changeNav={this.changeNav.bind(this)} />
         </Header>
-        <Layout>
-          <Sider width={ 200 } className="site-layout-background">
-            <Menu
-              mode="inline"
-              defaultSelectedKeys={ [ '1' ] }
-              defaultOpenKeys={ [ 'sub1' ] }
-              style={ { height: '100%', borderRight: 0 } }
-            >
-              <SubMenu key="sub1" title="someGames" onClick={ ( e ) => this.clickMenu ( e ) }>
-                <Menu.Item key="Mine clearing">Mine clearing</Menu.Item>
-                <Menu.Item key="2">option2</Menu.Item>
-                <Menu.Item key="3">option3</Menu.Item>
-                <Menu.Item key="4">option4</Menu.Item>
-              </SubMenu>
-            </Menu>
-          </Sider>
-          <Layout style={ { padding: '0 24px 24px' } }>
-            {/*<Breadcrumb style={ { margin: '16px 0' } }>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
-            </Breadcrumb>*/ }
-            <div style={ { height: '40px', lineHeight: '40px' } }> Good Luck For You</div>
-            <Content
-              className="site-layout-background"
-              style={ {
-                padding: 24,
-                margin: 0,
-                minHeight: 280,
-              } }
-            >
-              {
-                menuItem === 'Mine clearing' && <BoxGame/>
-              }
-            </Content>
-          </Layout>
-        </Layout>
+        { nav === '1' && <Layout1 themeColor={themeColor} theme={theme}/> }
+        { ( nav === '2' || nav === '3' ) && <Layout2/> }
       </Layout>
     );
   }
