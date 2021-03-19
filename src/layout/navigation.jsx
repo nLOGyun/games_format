@@ -19,7 +19,7 @@ export default class navigation extends Component {
       <div style={{ color: themeColor.color, backgroundColor: themeColor.backgroundColor }}>
         <Menu
           theme={theme}
-          style={{ display: 'inline-block' }}
+          style={{ display: 'inline-block', width: '100%' }}
           mode="horizontal"
           defaultSelectedKeys={ [ '1' ] } onClick={ ( e ) => changeNav( e ) }
         >
